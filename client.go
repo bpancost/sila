@@ -201,6 +201,52 @@ func (client *ClientImpl) performCallWithUserAuth(path string, requestBody inter
 	return nil
 }
 
+// Perform a call to the API at some path signed by a user's wallet private key and a business's wallet key, with the included request and a pointer to the response struct
+func (client *ClientImpl) performCallWithUserAndBusinessAuth(path string, requestBody interface{}, responseBody interface{}, userWalletPrivateKey string, businessWalletPrivateKey string) error {
+	requestJson, err := json.Marshal(requestBody)
+	if err != nil {
+		return nil
+	}
+	url := instance.environment.generateURL(instance.version, path)
+	request, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(requestJson))
+	if err != nil {
+		return err
+	}
+	request.Header.Set("Content-type", "application/json")
+
+	authSignature, err := instance.generateAuthSignature(requestJson)
+	if err != nil {
+		return errors.Errorf("failed to generate auth signature: %v", err)
+	}
+	request.Header.Set("authsignature", authSignature)
+
+	userSignature, err := GenerateWalletSignature(requestJson, userWalletPrivateKey)
+	if err != nil {
+		return errors.Errorf("failed to generate user signature: %v", err)
+	}
+	request.Header.Set("usersignature", userSignature)
+
+	businessSignature, err := GenerateWalletSignature(requestJson, businessWalletPrivateKey)
+	if err != nil {
+		return errors.Errorf("failed to generate business signature: %v", err)
+	}
+	request.Header.Set("businesssignature", businessSignature)
+
+	httpClient := http.Client{}
+	resp, err := httpClient.Do(request)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	err = json.NewDecoder(resp.Body).Decode(&responseBody)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // Perform a public (no auth required) call to the API at some path with the included request and a pointer to the response struct
 func (client *ClientImpl) performPublicCall(path string, requestBody interface{}, responseBody interface{}) error {
 	requestJson, err := json.Marshal(requestBody)
