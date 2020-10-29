@@ -59,3 +59,13 @@ type UnlinkBusinessMember interface {
 	SetControllingOfficerRole() UnlinkBusinessMember
 	Do(userWalletPrivateKey string, businessWalletPrivateKey string) (UnlinkBusinessMemberResponse, error)
 }
+
+type CertifyBusiness interface {
+	SetRef(ref string) CertifyBusiness
+	Do(userWalletPrivateKey string, businessWalletPrivateKey string) (domain.SuccessResponse, error)
+}
+
+type CertifyBeneficialOwner interface {
+	SetRef(ref string) CertifyBeneficialOwner
+	Do(userWalletPrivateKey string, businessWalletPrivateKey string) (domain.SuccessResponse, error)
+}

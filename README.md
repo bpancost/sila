@@ -18,8 +18,8 @@ The current version of this library implements the following endpoints according
 * [x] [/unlink_business_member](https://docs.silamoney.com/docs/unlink_business_member)
 * [x] [/request_kyc](https://docs.silamoney.com/docs/request_kyc)
 * [x] [/check_kyc](https://docs.silamoney.com/docs/check_kyc)
-* [ ] [/certify_beneficial_owner](https://docs.silamoney.com/docs/certify_beneficial_owner)
-* [ ] [/certify_business](https://docs.silamoney.com/docs/certify_business)
+* [x] [/certify_beneficial_owner](https://docs.silamoney.com/docs/certify_beneficial_owner)
+* [x] [/certify_business](https://docs.silamoney.com/docs/certify_business)
 * [x] [/get_entities](https://docs.silamoney.com/docs/get_entities)
 * [x] [/get_entity](https://docs.silamoney.com/docs/get_entity)
 
