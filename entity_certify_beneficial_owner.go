@@ -9,11 +9,14 @@ func (client ClientImpl) CertifyBeneficialOwner(adminUserHandle string, business
 }
 
 type CertifyBeneficialOwnerMsg struct {
-	Header *Header `json:"header"`
+	Header             *Header `json:"header"`
+	MemberHandle       string  `json:"member_handle"`
+	CertificationToken string  `json:"certification_token"`
 }
 
-func (msg *CertifyBeneficialOwnerMsg) SetRef(ref string) CertifyBeneficialOwner {
-	msg.Header.setRef(ref)
+func (msg *CertifyBeneficialOwnerMsg) SetCertificationToken(userHandleToCertify string, certificationToken string) CertifyBeneficialOwner {
+	msg.MemberHandle = userHandleToCertify
+	msg.CertificationToken = certificationToken
 	return msg
 }
 

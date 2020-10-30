@@ -16,11 +16,15 @@ import (
 
 type Client interface {
 	CheckHandle(userHandle string) CheckHandle
-	Register(userHandle string) Register
+	Register(userOrBusinessHandle string) Register
 	RequestKyc(userHandle string) RequestKyc
 	CheckKyc(userHandle string) CheckKyc
 	GetEntity(userHandle string) GetEntity
 	GetEntities() GetEntities
+	LinkBusinessMember(userHandle string, businessHandle string) LinkBusinessMember
+	UnlinkBusinessMember(userHandle string, businessHandle string) UnlinkBusinessMember
+	CertifyBeneficialOwner(adminUserHandle string, businessHandle string) CertifyBeneficialOwner
+	CertifyBusiness(adminUserHandle string, businessHandle string) CertifyBusiness
 
 	LinkAccount(userHandle string) LinkAccount
 	PlaidSameDayAuth(userHandle string, accountName string) PlaidSameDayAuth

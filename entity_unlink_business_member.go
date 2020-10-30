@@ -11,11 +11,6 @@ type UnlinkBusinessMemberMsg struct {
 	Role   string  `json:"role"`
 }
 
-func (msg *UnlinkBusinessMemberMsg) SetRef(ref string) UnlinkBusinessMember {
-	msg.Header.setRef(ref)
-	return msg
-}
-
 func (msg *UnlinkBusinessMemberMsg) SetAdminRole() UnlinkBusinessMember {
 	msg.Role = "administrator"
 	return msg

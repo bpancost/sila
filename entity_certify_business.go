@@ -9,14 +9,7 @@ func (client ClientImpl) CertifyBusiness(adminUserHandle string, businessHandle 
 }
 
 type CertifyBusinessMsg struct {
-	Header             *Header `json:"header"`
-	MemberHandle       string  `json:"member_handle"`
-	CertificationToken string  `json:"certification_token"`
-}
-
-func (msg *CertifyBusinessMsg) SetRef(ref string) CertifyBusiness {
-	msg.Header.setRef(ref)
-	return msg
+	Header *Header `json:"header"`
 }
 
 func (msg *CertifyBusinessMsg) Do(userWalletPrivateKey string, businessWalletPrivateKey string) (domain.SuccessResponse, error) {
