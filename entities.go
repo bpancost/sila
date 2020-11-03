@@ -51,14 +51,14 @@ type LinkBusinessMember interface {
 	SetBeneficialOwnerMemberAsAdmin(newMemberHandle string, ownershipStake float64) LinkBusinessMember
 	SetBeneficialOwnerMember(ownershipStake float64) LinkBusinessMember
 	SetMemberDescription(description string) LinkBusinessMember
-	Do(userWalletPrivateKey string, businessWalletPrivateKey string) (LinkBusinessMemberResponse, error)
+	Do(userWalletPrivateKey string, businessWalletPrivateKey string) (domain.LinkBusinessMemberResponse, error)
 }
 
 type UnlinkBusinessMember interface {
 	SetAdminRole() UnlinkBusinessMember
 	SetBeneficialOwnerRole() UnlinkBusinessMember
 	SetControllingOfficerRole() UnlinkBusinessMember
-	Do(userWalletPrivateKey string, businessWalletPrivateKey string) (UnlinkBusinessMemberResponse, error)
+	Do(userWalletPrivateKey string, businessWalletPrivateKey string) (domain.UnlinkBusinessMemberResponse, error)
 }
 
 type CertifyBusiness interface {
@@ -68,4 +68,30 @@ type CertifyBusiness interface {
 type CertifyBeneficialOwner interface {
 	SetCertificationToken(userHandleToCertify string, certificationToken string) CertifyBeneficialOwner
 	Do(userWalletPrivateKey string, businessWalletPrivateKey string) (domain.SuccessResponse, error)
+}
+
+type AddRegistrationData interface {
+	SetEmail(email string) AddRegistrationData
+	SetPhone(phone string) AddRegistrationData
+	SetIdentity(identityAlias string, identityValue string) AddRegistrationData
+	SetAddress(address domain.RegistrationAddress) AddRegistrationData
+	Do(userWalletPrivateKey string) (domain.ModifyRegistrationDataResponse, error)
+}
+
+type UpdateRegistrationData interface {
+	SetEmail(emailUuid string, email string) UpdateRegistrationData
+	SetPhone(phoneUuid string, phone string) UpdateRegistrationData
+	SetIdentity(identityUuid string, identityAlias string, identityValue string) UpdateRegistrationData
+	SetAddress(addressUuid string, address domain.RegistrationAddress) UpdateRegistrationData
+	SetIndividualEntity(firstName string, lastName string, fullName string, birthDate string) UpdateRegistrationData
+	SetBusinessEntity(businessName string, startDate string, businessType string, naicsCode int, doingBusinessAs string, businessWebsite string) UpdateRegistrationData
+	Do(userWalletPrivateKey string) (domain.ModifyRegistrationDataResponse, error)
+}
+
+type DeleteRegistrationData interface {
+	SetEmail(emailUuid string) DeleteRegistrationData
+	SetPhone(phoneUuid string) DeleteRegistrationData
+	SetIdentity(identityUuid string) DeleteRegistrationData
+	SetAddress(addressUuid string) DeleteRegistrationData
+	Do(userWalletPrivateKey string) (domain.SuccessResponse, error)
 }

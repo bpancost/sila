@@ -25,6 +25,9 @@ type Client interface {
 	UnlinkBusinessMember(userHandle string, businessHandle string) UnlinkBusinessMember
 	CertifyBeneficialOwner(adminUserHandle string, businessHandle string) CertifyBeneficialOwner
 	CertifyBusiness(adminUserHandle string, businessHandle string) CertifyBusiness
+	AddRegistrationData(userHandle string) AddRegistrationData
+	UpdateRegistrationData(userHandle string) UpdateRegistrationData
+	DeleteRegistrationData(userHandle string) DeleteRegistrationData
 
 	LinkAccount(userHandle string) LinkAccount
 	PlaidSameDayAuth(userHandle string, accountName string) PlaidSameDayAuth

@@ -1,5 +1,7 @@
 package sila
 
+import "github.com/bpancost/sila/domain"
+
 // Link a business member to the specified business.
 // If the user handle is an admin of the business, a different user handle should be specified to link to the business (use "AsAdmin" methods).
 // If the user handle is not an admin of the business, that handle will be linked.
@@ -71,19 +73,8 @@ func (msg *LinkBusinessMemberMsg) SetMemberDescription(description string) LinkB
 	return msg
 }
 
-type LinkBusinessMemberResponse struct {
-	Success           bool                   `json:"success"`
-	Reference         string                 `json:"reference"`
-	Message           string                 `json:"message"`
-	Status            string                 `json:"status"`
-	ValidationDetails map[string]interface{} `json:"validation_details"`
-	Role              string                 `json:"role"`
-	Details           string                 `json:"details"`
-	VerificationUuid  string                 `json:"verification_uuid"`
-}
-
-func (msg *LinkBusinessMemberMsg) Do(userWalletPrivateKey string, businessWalletPrivateKey string) (LinkBusinessMemberResponse, error) {
-	var responseBody LinkBusinessMemberResponse
+func (msg *LinkBusinessMemberMsg) Do(userWalletPrivateKey string, businessWalletPrivateKey string) (domain.LinkBusinessMemberResponse, error) {
+	var responseBody domain.LinkBusinessMemberResponse
 	err := instance.performCallWithUserAndBusinessAuth("/link_business_member", msg, &responseBody, userWalletPrivateKey, businessWalletPrivateKey)
 	return responseBody, err
 }
