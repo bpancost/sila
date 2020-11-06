@@ -63,7 +63,7 @@ func (msg *UpdateRegistrationDataMsg) SetAddress(addressUuid string, address dom
 	msg.State = address.State
 	msg.Country = address.Country
 	msg.PostalCode = address.PostalCode
-	msg.DataType = domain.IdentityDataType
+	msg.DataType = domain.AddressDataType
 	return msg
 }
 
